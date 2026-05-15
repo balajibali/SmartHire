@@ -5,3 +5,7 @@ pandas
 requests
 sentence-transformers
 streamlit
+sqlite-utils
+python-dotenv
+requests
+scikit-learn
