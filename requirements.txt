@@ -1,0 +1,7 @@
+PyPDF2
+faiss-cpu
+numpy
+pandas
+requests
+sentence-transformers
+streamlit
