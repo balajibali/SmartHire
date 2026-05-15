@@ -1,4 +1,4 @@
-# 🚀 Balaji – AI RESUME SCREENING (SMART HIRE MANAGEMENT)
+# Balaji – AI RESUME SCREENING (SMART HIRE MANAGEMENT)
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
 ![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red)
@@ -7,9 +7,9 @@
 
 ---
 
-## 🌟 Overview
+##  Overview
 
-This project is a **smart job recommendation and authentication system** built using **Streamlit**.
+This project is a **smart hire management ** built using **Streamlit**.
 
 It provides a complete solution for:
 - Secure user authentication using OTP
@@ -19,7 +19,7 @@ It provides a complete solution for:
 
 ---
 
-## 🖥️ UI Preview
+##  UI Preview
 
 ### 🔹 Home Page
 ![Home UI](assets/home_preview.png)
