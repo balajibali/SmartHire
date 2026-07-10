@@ -10,13 +10,56 @@ from nav import go_back, navigate
 
 # ---------- HELPERS ----------
 def extract_name(text, fallback):
-    if not text:
-        return fallback.replace(".pdf", "")
-    for line in text.strip().split("\n")[:5]:
-        if 2 <= len(line.split()) <= 4 and not any(c.isdigit() for c in line):
-            return line.strip()
-    return fallback.replace(".pdf", "")
+    """
+    Extract candidate name from resume text.
+    Falls back to DB name if extraction fails.
+    """
 
+    try:
+
+        if not text:
+            return fallback.replace(".pdf", "")
+
+        lines = [
+            line.strip()
+            for line in text.split("\n")
+            if line.strip()
+        ]
+
+        for line in lines[:15]:
+
+            if "@" in line:
+                continue
+
+            if any(ch.isdigit() for ch in line):
+                continue
+
+            words = line.split()
+
+            if len(words) < 2 or len(words) > 4:
+                continue
+
+            skip_words = [
+                "resume",
+                "curriculum",
+                "vitae",
+                "profile",
+                "objective",
+                "summary",
+                "experience",
+                "education",
+                "skills"
+            ]
+
+            if any(w.lower() in skip_words for w in words):
+                continue
+
+            return line.title()
+
+        return fallback.replace(".pdf", "")
+
+    except:
+        return fallback.replace(".pdf", "")
 
 def calculate_match_score(job_desc, resume_text):
     job_desc = (job_desc or "").lower()

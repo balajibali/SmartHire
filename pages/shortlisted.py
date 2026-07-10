@@ -173,6 +173,57 @@ def show_pdf(file_bytes):
 # =========================
 # MAIN PAGE
 # =========================
+
+def extract_name(text, fallback):
+
+    try:
+
+        if not text:
+            return fallback.replace(".pdf", "")
+
+        lines = [
+            line.strip()
+            for line in text.split("\n")
+            if line.strip()
+        ]
+
+        for line in lines[:15]:
+
+            if "@" in line:
+                continue
+
+            if any(ch.isdigit() for ch in line):
+                continue
+
+            words = line.split()
+
+            if len(words) < 2 or len(words) > 4:
+                continue
+
+            skip_words = [
+                "resume",
+                "curriculum",
+                "vitae",
+                "profile",
+                "objective",
+                "summary",
+                "experience",
+                "education",
+                "skills"
+            ]
+
+            if any(w.lower() in skip_words for w in words):
+                continue
+
+            return line.title()
+
+        return fallback.replace(".pdf", "")
+
+    except:
+        return fallback.replace(".pdf", "")
+
+
+
 def show():
 
     if not st.session_state.get("logged_in"):
@@ -261,9 +312,15 @@ def show():
         if st.session_state.show_ai_only and cid not in ai_ids:
             continue
 
+        candidate_name = extract_name(
+               resume,
+               name or "Unknown Candidate"
+         )
+
+
         data.append({
             "id": cid,
-            "name": (name or "").replace(".pdf", ""),
+            "name":candidate_name ,
             "email": email or "",
             "score": score,
             "resume": resume or "",

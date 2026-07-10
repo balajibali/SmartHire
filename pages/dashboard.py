@@ -24,9 +24,14 @@ def show():
     col1, col2 = st.columns([6, 1])
 
     with col1:
-        st.markdown("<h2 class='title'>Dashboard</h2>", unsafe_allow_html=True)
         st.markdown(
-            f"<p class='welcome'>Welcome back, {st.session_state.get('email')}</p>",
+            "<h2 class='title'>Dashboard</h2>",
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f"<p class='welcome'>Welcome back, "
+            f"{st.session_state.get('email')}</p>",
             unsafe_allow_html=True
         )
 
@@ -36,15 +41,27 @@ def show():
             st.rerun()
 
     # =========================
-    # MENU
+    # MENU + OVERVIEW
     # =========================
     if "nav_open" not in st.session_state:
         st.session_state.nav_open = False
 
-    if st.button("Menu", key="menu_btn"):
-        st.session_state.nav_open = not st.session_state.nav_open
+    menu_col, overview_col, empty_col = st.columns([1, 1, 6])
 
+    with menu_col:
+        if st.button("☰ Menu", key="menu_btn"):
+            st.session_state.nav_open = not st.session_state.nav_open
+
+    with overview_col:
+        if st.button("Overview", key="overview_btn"):
+            st.session_state.page = "overview"
+            st.rerun()
+
+    # =========================
+    # NAVIGATION MENU
+    # =========================
     if st.session_state.nav_open:
+
         c1, c2, c3, c4, c5 = st.columns(5)
 
         if c1.button("Create Job"):
@@ -76,14 +93,31 @@ def show():
 
     c1, c2, c3, c4 = st.columns(4)
 
-    c1.markdown(card("Total Jobs", jobs, "blue"), unsafe_allow_html=True)
-    c2.markdown(card("Candidates", candidates, "purple"), unsafe_allow_html=True)
-    c3.markdown(
-        card("Shortlisted", get_total_shortlisted(), "green"),
+    c1.markdown(
+        card("Total Jobs", jobs, "blue"),
         unsafe_allow_html=True
     )
+
+    c2.markdown(
+        card("Candidates", candidates, "purple"),
+        unsafe_allow_html=True
+    )
+
+    c3.markdown(
+        card(
+            "Shortlisted",
+            get_total_shortlisted(),
+            "green"
+        ),
+        unsafe_allow_html=True
+    )
+
     c4.markdown(
-        card("Pending", get_pending(), "orange"),
+        card(
+            "Pending",
+            get_pending(),
+            "orange"
+        ),
         unsafe_allow_html=True
     )
 
@@ -95,7 +129,10 @@ def show():
     left, right = st.columns([6, 1])
 
     with left:
-        st.markdown("<h4>Recent Jobs</h4>", unsafe_allow_html=True)
+        st.markdown(
+            "<h4>Recent Jobs</h4>",
+            unsafe_allow_html=True
+        )
 
     with right:
         if st.button("View Jobs", key="view_jobs_top"):
@@ -111,7 +148,11 @@ def show():
                 j.id,
                 j.title,
                 j.deadline,
-                (SELECT COUNT(*) FROM candidates c WHERE c.job_id = j.id),
+                (
+                    SELECT COUNT(*)
+                    FROM candidates c
+                    WHERE c.job_id = j.id
+                ),
                 (
                     SELECT COUNT(*)
                     FROM candidates c
@@ -125,12 +166,15 @@ def show():
         """, (st.session_state.user_id,))
 
         jobs_data = cursor.fetchall()
+
         conn.close()
 
         if jobs_data:
+
             rows = []
 
             for row in jobs_data:
+
                 job_id, title, deadline, applied, shortlisted = row
 
                 if not title:
@@ -147,6 +191,7 @@ def show():
                 ])
 
             if rows:
+
                 df = pd.DataFrame(
                     rows,
                     columns=[
@@ -185,15 +230,20 @@ def show():
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []
 
-    query = st.text_input("Ask anything", key="chat_input")
+    query = st.text_input(
+        "Ask anything",
+        key="chat_input"
+    )
 
     # 🚀 SUBMIT
     submit = st.button("Submit")
 
     # 💬 DISPLAY CHAT
     for msg in st.session_state.chat_history:
+
         if msg["role"] == "user":
             st.markdown(f"**You:** {msg['content']}")
+
         else:
             st.markdown(f"**AI:** {msg['content']}")
 
@@ -210,6 +260,7 @@ def show():
             return
 
         try:
+
             with st.spinner("AI thinking..."):
 
                 q = query.lower()
@@ -235,10 +286,15 @@ def show():
                     cursor = conn.cursor()
 
                     cursor.execute("""
-                        SELECT name, skills, experience 
+                        SELECT 
+                            name,
+                            skills,
+                            experience 
                         FROM candidates
                         WHERE job_id IN (
-                            SELECT id FROM jobs WHERE user_id=?
+                            SELECT id
+                            FROM jobs
+                            WHERE user_id=?
                         )
                         LIMIT 5
                     """, (st.session_state.user_id,))
@@ -246,7 +302,10 @@ def show():
                     candidates_data = cursor.fetchall()
 
                     cursor.execute("""
-                        SELECT title, skills, experience 
+                        SELECT 
+                            title,
+                            skills,
+                            experience 
                         FROM jobs
                         WHERE user_id=?
                         ORDER BY id DESC
@@ -258,6 +317,7 @@ def show():
                     conn.close()
 
                     for c in candidates_data:
+
                         candidate_context += (
                             f"Name: {c[0]}, "
                             f"Skills: {c[1]}, "
@@ -265,6 +325,7 @@ def show():
                         )
 
                     for j in jobs_data:
+
                         job_context += (
                             f"Job: {j[0]}, "
                             f"Skills: {j[1]}, "
@@ -274,8 +335,16 @@ def show():
                 history_text = ""
 
                 for m in st.session_state.chat_history[-5:]:
-                    role = "User" if m["role"] == "user" else "AI"
-                    history_text += f"{role}: {m['content']}\n"
+
+                    role = (
+                        "User"
+                        if m["role"] == "user"
+                        else "AI"
+                    )
+
+                    history_text += (
+                        f"{role}: {m['content']}\n"
+                    )
 
                 if is_general:
 
@@ -306,7 +375,8 @@ Conversation:
 
 User: {query}
 
-Answer using data. Keep it short.
+Answer using data.
+Keep it short.
 """
 
                 response = generate_ai_response(prompt)
@@ -334,22 +404,30 @@ Answer using data. Keep it short.
 # 📊 STATS
 # =========================
 def get_stats():
+
     try:
+
         conn = get_connection()
         cursor = conn.cursor()
 
-        # ✅ Total jobs created by current user
+        # ✅ Total jobs
         cursor.execute(
-            "SELECT COUNT(*) FROM jobs WHERE user_id=?",
+            """
+            SELECT COUNT(*)
+            FROM jobs
+            WHERE user_id=?
+            """,
             (st.session_state.user_id,)
         )
+
         jobs = cursor.fetchone()[0]
 
-        # ✅ Total APPLIED candidates
+        # ✅ Total applied candidates
         cursor.execute("""
             SELECT COUNT(*)
             FROM candidates c
-            JOIN jobs j ON c.job_id = j.id
+            JOIN jobs j
+            ON c.job_id = j.id
             WHERE j.user_id=?
             AND c.status='Applied'
         """, (st.session_state.user_id,))
@@ -366,7 +444,9 @@ def get_stats():
 
 
 def get_total_shortlisted():
+
     try:
+
         conn = get_connection()
         cursor = conn.cursor()
 
@@ -387,7 +467,9 @@ def get_total_shortlisted():
 
 
 def get_pending():
+
     try:
+
         conn = get_connection()
         cursor = conn.cursor()
 
@@ -411,12 +493,18 @@ def get_pending():
 # 📌 STATUS
 # =========================
 def compute_status(deadline):
+
     try:
+
         if not deadline:
             return "Unknown"
 
         if isinstance(deadline, str):
-            d = datetime.strptime(deadline, "%Y-%m-%d").date()
+            d = datetime.strptime(
+                deadline,
+                "%Y-%m-%d"
+            ).date()
+
         else:
             d = deadline
 
@@ -439,6 +527,7 @@ def compute_status(deadline):
 # 🎨 UI HELPERS
 # =========================
 def card(title, value, color):
+
     return f"""
     <div class="card {color}">
         <div class="card-title">{title}</div>
@@ -464,12 +553,21 @@ def badge(status):
 # 🎨 CSS
 # =========================
 def load_css():
+
     st.markdown("""
     <style>
 
-    #MainMenu {visibility: hidden;}
-    header {visibility: hidden;}
-    footer {visibility: hidden;}
+    #MainMenu {
+        visibility: hidden;
+    }
+
+    header {
+        visibility: hidden;
+    }
+
+    footer {
+        visibility: hidden;
+    }
 
     .block-container {
         padding: 1.5rem 2rem;
@@ -478,9 +576,21 @@ def load_css():
 
     .stApp {
         background:
-            radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15), transparent 40%),
-            radial-gradient(circle at 80% 30%, rgba(59,130,246,0.15), transparent 40%),
-            linear-gradient(135deg, #f8fafc, #eef2ff);
+            radial-gradient(
+                circle at 20% 20%,
+                rgba(99,102,241,0.15),
+                transparent 40%
+            ),
+            radial-gradient(
+                circle at 80% 30%,
+                rgba(59,130,246,0.15),
+                transparent 40%
+            ),
+            linear-gradient(
+                135deg,
+                #f8fafc,
+                #eef2ff
+            );
     }
 
     .title {
@@ -501,19 +611,39 @@ def load_css():
     }
 
     .blue {
-        background: linear-gradient(135deg, #3b82f6, #2563eb);
+        background:
+            linear-gradient(
+                135deg,
+                #3b82f6,
+                #2563eb
+            );
     }
 
     .purple {
-        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        background:
+            linear-gradient(
+                135deg,
+                #8b5cf6,
+                #7c3aed
+            );
     }
 
     .green {
-        background: linear-gradient(135deg, #10b981, #059669);
+        background:
+            linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            );
     }
 
     .orange {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
+        background:
+            linear-gradient(
+                135deg,
+                #f59e0b,
+                #d97706
+            );
     }
 
     table {
@@ -545,6 +675,23 @@ def load_css():
 
     .badge.orange {
         background: #f59e0b;
+    }
+
+    /* =========================
+       BUTTONS
+    ========================= */
+
+    div[data-testid="stButton"] button {
+        border-radius: 10px;
+        border: none;
+        padding: 0.4rem 0.9rem;
+        font-weight: 600;
+        transition: 0.2s ease;
+    }
+
+    div[data-testid="stButton"] button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.10);
     }
 
     </style>

@@ -343,7 +343,7 @@ def show():
         # =========================
         base_url = os.getenv(
             "BASE_URL",
-            " https://staining-twisty-disrupt.ngrok-free.dev"
+            "https://staining-twisty-disrupt.ngrok-free.dev"
         ).strip()
 
         apply_link = f"{base_url}/?job_id={job_id}"
@@ -357,30 +357,6 @@ def show():
 
         st.code(apply_link)
 
-        # =========================
-        # 📋 COPY LINK
-        # =========================
-        st.markdown(
-            f"""
-            <button
-                onclick="navigator.clipboard.writeText('{apply_link}')"
-                style="
-                    background:#2563eb;
-                    color:white;
-                    border:none;
-                    padding:10px 18px;
-                    border-radius:8px;
-                    cursor:pointer;
-                    margin-top:10px;
-                "
-            >
-                📋 Copy Link
-            </button>
-            """,
-            unsafe_allow_html=True
-        )
-
-        st.markdown("<br>", unsafe_allow_html=True)
 
         # =========================
         # 📱 WHATSAPP SHARE

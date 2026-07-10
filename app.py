@@ -94,7 +94,7 @@ else:
     if st.session_state.page == "dashboard":
         from pages import dashboard
         dashboard.show()
-
+     
     elif st.session_state.page == "create_job":
         from pages import create_job
         create_job.show()
@@ -126,6 +126,10 @@ else:
     elif st.session_state.page == "recommendation":
         from pages import recommendation
         recommendation.show()
+
+    elif st.session_state.page == "overview":
+        from pages import overview
+        overview.show()
 
     else:
         st.session_state.page = "dashboard"

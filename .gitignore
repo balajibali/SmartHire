@@ -1,5 +1,26 @@
-__pycache__/ 
-*.pyc 
-*.db 
-.env 
-venv/ 
+# Python
+__pycache__/
+*.pyc
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+database/database.db
+
+# Streamlit cache
+.streamlit/
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log

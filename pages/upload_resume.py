@@ -20,6 +20,30 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
+def extract_candidate_name(text, fallback="Unknown Candidate"):
+
+    try:
+
+        if not text:
+            return fallback
+
+        first = text[:200].strip()
+
+        import re
+
+        match = re.match(
+            r"^([A-Z][A-Z\s]{2,40})",
+            first
+        )
+
+        if match:
+            return match.group(1).strip().title()
+
+        return fallback
+
+    except:
+        return fallback
+
 
 def show():
     load_css()
@@ -139,7 +163,13 @@ def show():
                     continue
 
             # SCORE
-            score = match_candidates(text, job_id)
+            score, _ = match_candidates(text, job_id)
+
+            candidate_name = extract_candidate_name(
+                    text,
+                    filename.replace(".pdf", "")
+             )
+            
 
             # SAVE
             cursor.execute("""
@@ -148,7 +178,7 @@ def show():
                 VALUES (?, ?, ?, ?, ?, ?, 'Applied')
             """, (
                 job_id,
-                filename,
+                candidate_name,
                 email,
                 text,
                 file_bytes,
@@ -169,7 +199,7 @@ def show():
                         (name, email, resume_text)
                         VALUES (?, ?, ?)
                     """, (
-                        filename,
+                        candidate_name,
                         email,
                         text
                     ))
@@ -232,7 +262,7 @@ def load_css():
         margin-top: 0;
     }
 
-    .card {
+    .card { 
         background: white;
         padding: 20px;
         border-radius: 12px;
