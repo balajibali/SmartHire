@@ -1,162 +1,101 @@
-HEAD
-# Balaji – AI RESUME SCREENING (SMART HIRE MANAGEMENT)
-
-![Python](https://img.shields.io/badge/Python-3.10-blue)
-![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red)
-![SQLite](https://img.shields.io/badge/Database-SQLite-green)
-![Status](https://img.shields.io/badge/Status-Active-success)
-
----
-
-##  Overview
-
-This project is a **smart hire management ** built using **Streamlit**.
-
-It provides a complete solution for:
-- Secure user authentication using OTP
-- AI-powered responses
-- Resume and job handling
-- Clean and modern UI
-
----
-
-##  UI Preview
-
-### 🔹 Home Page
-![Home UI](assets/home_preview.png)
-
-### 🔹 Login Page
-![Login UI](assets/login_preview.png)
-
-### 🔹 Dashboard
-![Dashboard UI](assets/dashboard_preview.png)
-
-> 💡 Add your screenshots inside an `assets/` folder in your project
-
----
-
-## 🚀 Features
-
-- ✅ User Registration & Login  
-- 📧 Email OTP Verification  
-- 🔐 Password Reset System  
-- 🤖 AI Integration (Ollama)  
-- 📂 Resume & Job Management  
-- 🎨 Clean UI using Streamlit  
-
----
-
-## 🛠 Tech Stack
-
-| Technology | Usage |
-|----------|------|
-| Python | Backend |
-| Streamlit | Frontend UI |
-| SQLite | Database |
-| SMTP | Email Service |
-| Ollama | AI Responses |
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Clone the repository
-```bash
-git clone https://github.com/your-username/balaji.git
-cd balaji
-=======
 # AI Resume Screening System
 
-An AI-powered Resume Screening System developed using **Python**, **Streamlit**, **SQLite**, and **Ollama (Llama 3)** to help HR professionals automate the resume screening process. The system analyzes candidate resumes, matches them with job requirements, ranks applicants based on skill matching, and provides AI-assisted insights to simplify recruitment.
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![Streamlit](https://img.shields.io/badge/Framework-Streamlit-red)
+![SQLite](https://img.shields.io/badge/Database-SQLite-green)
+![AI](https://img.shields.io/badge/AI-Ollama%20Llama3-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+An AI-powered Resume Screening System developed using **Python**, **Streamlit**, **SQLite**, and **Ollama (Llama 3)**. The application helps HR professionals automate resume screening by extracting candidate information, matching resumes with job requirements, ranking candidates based on skills, and providing AI-assisted insights.
 
 ---
 
-## Features
+# Features
 
-- Secure HR Login and Authentication
-- Dashboard with Recruitment Analytics
-- Job Posting Management
-- Resume Upload and Parsing
-- AI-Powered Resume Screening
-- Skill Extraction and Matching
-- Candidate Ranking Based on Match Score
-- Candidate Management
-- AI Chat Assistant
-- Search and Filter Candidates
-- Interactive Charts and Reports
-- SQLite Database Integration
+- 🔐 Secure HR Login and Authentication
+- 📋 Job Posting Management
+- 📄 Resume Upload and Parsing
+- 🤖 AI-Powered Resume Screening
+- 🎯 Skill Extraction and Matching
+- 📊 Candidate Ranking
+- 👥 Candidate Management
+- 💬 AI Chat Assistant
+- 📈 Recruitment Analytics Dashboard
+- 🔍 Search and Filter Candidates
+- 🗄 SQLite Database Integration
 
 ---
 
-## Technology Stack
+# Technology Stack
 
-### Frontend
+## Frontend
 - Streamlit
 - HTML
 - CSS
 
-### Backend
+## Backend
 - Python
 
-### Database
+## Database
 - SQLite
 
-### AI Model
+## AI Model
 - Ollama
 - Llama 3
 
-### Libraries Used
+---
+
+# Libraries Used
 
 - streamlit
 - pandas
 - plotly
-- sqlite3
+- requests
+- python-dotenv
 - PyPDF2
 - pdfplumber
 - python-docx
-- hashlib
-- re
+- Pillow
 
 ---
 
-## Project Structure
+# Project Structure
 
-```
+```text
 AI-Resume-Screening/
 │
 ├── app.py
-├── login.py
-├── dashboard.py
-├── upload_resume.py
-├── pages/
-├── services/
-├── database/
-├── utils/
-├── assets/
-├── requirements.txt
 ├── README.md
-└── .env.example
+├── requirements.txt
+├── .gitignore
+├── .env.example
+│
+├── assets/
+├── auth/
+├── database/
+├── pages/
+├── scripts/
+├── services/
+└── utils/
 ```
 
 ---
 
-## Installation
+# Installation
 
-### Clone Repository
+## Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/AI-Resume-Screening.git
-
-cd AI-Resume-Screening
+git clone https://github.com/balajibali/balaji.git
+cd balaji
 ```
 
-### Create Virtual Environment (Optional)
+## Create Virtual Environment (Optional)
 
 Windows
 
 ```bash
 python -m venv venv
-
 venv\Scripts\activate
 ```
 
@@ -164,11 +103,10 @@ Linux / macOS
 
 ```bash
 python3 -m venv venv
-
 source venv/bin/activate
 ```
 
-### Install Dependencies
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -176,26 +114,26 @@ pip install -r requirements.txt
 
 ---
 
-## Configure Environment Variables
+# Configure Environment Variables
 
-Create a file named `.env`
+Create a file named `.env`.
 
 ```env
 EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_app_password
+EMAIL_PASS=your_gmail_app_password
 OLLAMA_URL=http://127.0.0.1:11434/api/generate
 MODEL=llama3
 ```
 
 ---
 
-## Install Ollama
+# Install Ollama
 
-Download and install Ollama from:
+Download Ollama:
 
 https://ollama.com
 
-Pull the Llama 3 model:
+Pull the model:
 
 ```bash
 ollama pull llama3
@@ -209,13 +147,13 @@ ollama serve
 
 ---
 
-## Run the Project
+# Run the Application
 
 ```bash
 streamlit run app.py
 ```
 
-The application will open in your browser.
+Open your browser:
 
 ```
 http://localhost:8501
@@ -223,63 +161,63 @@ http://localhost:8501
 
 ---
 
-## Screenshots
+# Screenshots
 
-### Login Page
+## Login Page
 
-_Add Screenshot_
-
----
-
-### Dashboard
-
-_Add Screenshot_
+_Add screenshot here._
 
 ---
 
-### Job Management
+## Dashboard
 
-_Add Screenshot_
-
----
-
-### Resume Upload
-
-_Add Screenshot_
+_Add screenshot here._
 
 ---
 
-### Candidate List
+## Job Management
 
-_Add Screenshot_
-
----
-
-### Candidate Ranking
-
-_Add Screenshot_
+_Add screenshot here._
 
 ---
 
-### Analytics Dashboard
+## Resume Upload
 
-_Add Screenshot_
-
----
-
-### AI Chat Assistant
-
-_Add Screenshot_
+_Add screenshot here._
 
 ---
 
-## Workflow
+## Candidate List
+
+_Add screenshot here._
+
+---
+
+## Candidate Ranking
+
+_Add screenshot here._
+
+---
+
+## Analytics Dashboard
+
+_Add screenshot here._
+
+---
+
+## AI Chat Assistant
+
+_Add screenshot here._
+
+---
+
+# System Workflow
 
 1. HR logs into the system.
 2. HR creates job postings.
 3. Candidates upload resumes.
-4. Resume text is extracted.
-5. Skills are identified.
+4. Resume content is extracted.
+5. Skills are identified automatically.
 6. AI compares resumes with job requirements.
 7. Match scores are calculated.
 8. Candidates are ranked.
@@ -287,24 +225,24 @@ _Add Screenshot_
 
 ---
 
-## Future Enhancements
+# Future Enhancements
 
 - Multi-language Resume Support
-- Cloud Database Integration
-- Email Notifications
+- OCR Support for Scanned Resumes
 - Interview Scheduling
+- Email Notifications
 - AI Interview Question Generator
 - Resume Recommendation Engine
-- OCR Support for Scanned Resumes
+- Cloud Database Integration
 - Role-Based Access Control
 - PDF Report Generation
 - Cloud Deployment
 
 ---
 
-## Requirements
+# Requirements
 
-- Python 3.10+
+- Python 3.10 or later
 - Streamlit
 - SQLite
 - Ollama
@@ -312,28 +250,25 @@ _Add Screenshot_
 
 ---
 
-
-
----
-
-## Author
+# Author
 
 **B. Balaji**
 
-Masters of Computer Applications (MCA)
-Department of Computer Application
+Master of Computer Applications (MCA)
 
 AI Resume Screening System
 
 ---
 
-## Acknowledgements
+# Acknowledgements
 
-- Streamlit
 - Python
+- Streamlit
 - SQLite
 - Plotly
 - Ollama
 - Llama 3
 - Open Source Community
-4044707 (Update AI Resume Screening project)
+
+---
+
