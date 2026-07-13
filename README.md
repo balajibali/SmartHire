@@ -161,55 +161,7 @@ http://localhost:8501
 
 ---
 
-# Screenshots
 
-## Login Page
-
-_Add screenshot here._
-
----
-
-## Dashboard
-
-_Add screenshot here._
-
----
-
-## Job Management
-
-_Add screenshot here._
-
----
-
-## Resume Upload
-
-_Add screenshot here._
-
----
-
-## Candidate List
-
-_Add screenshot here._
-
----
-
-## Candidate Ranking
-
-_Add screenshot here._
-
----
-
-## Analytics Dashboard
-
-_Add screenshot here._
-
----
-
-## AI Chat Assistant
-
-_Add screenshot here._
-
----
 
 # System Workflow
 
